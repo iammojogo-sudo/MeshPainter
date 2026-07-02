@@ -1,0 +1,15 @@
+/*
+!exports/
+exports/*
+!exports/Windows/
+!exports/Linux/
+!exports/MacOSX/
+exports/Windows/*
+!exports/Windows/MeshPainter_Windows.zip
+exports/Linux/*
+!exports/Linux/MeshPainter_Linux.zip
+exports/MacOSX/*
+!exports/MacOSX/MeshPainter_MacOSX.zip
+!.gitignore
+!.gitattributes
+!README.md
