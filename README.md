@@ -1,3 +1,5 @@
+![MeshPainter logo](icon144.ico)
+
 # MeshPainter
 
 MeshPainter is a real-time 3D mesh painting tool built with Godot 3.6.2 and GLES2. Desktop builds are available for Windows, Linux, and macOS, with a browser build on itch.io.
