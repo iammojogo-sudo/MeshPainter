@@ -26,20 +26,15 @@ body {
   box-shadow: 0 22px 70px #0008;
 }
 
-.brand-mark {
-  display: grid;
-  width: 42px;
-  height: 42px;
-  place-items: center;
-  border-radius: 12px;
-  background: #3ecf8e;
-  color: #102019;
-  font-weight: 800;
-  font-size: 22px;
+.brand-logo {
+  display: block;
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
 }
 
 .eyebrow {
-  margin: 22px 0 8px;
+  margin: 16px 0 8px;
   color: #72d8a7;
   font-size: 12px;
   font-weight: 700;
