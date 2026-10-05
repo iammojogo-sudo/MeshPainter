@@ -1,87 +1,60 @@
-![MeshPainter logo](icon144.ico)
+# MeshPainter 1.3.3.0
 
-# MeshPainter
+MeshPainter is a Godot 3.6.2 desktop painting tool for adding **Vertex Color** or **UV Color** to 3D meshes. A browser demo is available on [itch.io](https://iammojogo.itch.io/meshpainter), and desktop builds are available for Windows, Linux, and macOS.
 
-MeshPainter is a real-time 3D mesh painting tool built with Godot 3.6.2 and GLES2. Desktop builds are available for Windows, Linux, and macOS, with a browser build on itch.io.
+This patch corrects material and color-map exports, fixes sign-in feedback for rejected credentials, and retains hosted password recovery and the Windows UV helper. Automatic UV generation remains Windows-only.
 
-Paint directly on a model using vertex colors or a texture. Vertex painting is available in the free version. Texture painting and several export and workflow tools require a purchased license.
+## Try and get MeshPainter
 
-**itch.io:** https://iammojogo.itch.io/meshpainter
+- **Browser demo:** Try the included example meshes on [itch.io](https://iammojogo.itch.io/meshpainter) without downloading. Registered browser accounts can save and reopen `.mp` projects through browser storage and download copies, but the browser build cannot export mesh formats. Anonymous demo sessions cannot save.
+- **Free desktop build:** Download the Windows, Linux, or macOS build from [GitHub Releases](https://github.com/iammojogo-sudo/MeshPainter/releases). Anonymous sessions can paint on included examples. A registered free account can import OBJ files and save or reopen `.mp` projects; it cannot export painted meshes.
+- **Paid edition:** The itch.io purchase unlocks UV Color painting, automatic UV generation on Windows, additional mesh import formats, mesh export, the eyedropper, and autosave. Mesh-format export requires the desktop build.
 
-**GitHub:** https://github.com/iammojogo-sudo/MeshPainter
+Windows is the tested desktop build. Linux and macOS builds are available, but have not been fully tested.
 
-**Upcoming release:** 1.3.0 — package and test fresh exports before publishing.
+## Painting
 
-## Features
+- Paint and erase with adjustable brush radius, opacity, and falloff.
+- Use **Vertex Color** or **UV Color**. The two modes keep separate paint data.
+- Existing usable UV layouts are detected and reused for UV Color painting on supported builds.
+- Windows can generate a new UV layout. Linux, macOS, and browser builds require usable UVs already on the mesh.
+- Applying a newly generated UV layout starts a blank UV Color layer; vertex colors are retained, but existing UV Color marks are not transferred.
+- Undo and redo paint strokes, use the wireframe overlay, and control the view with orbit or free-camera modes.
+- The current paint workflow supports one mesh surface at a time.
 
-### Vertex painting
-- Paint and erase vertex colors with an adjustable planar brush.
-- Set brush radius, opacity, color, and falloff.
-- Undo and redo painting.
-- Use orbit and free-camera modes, wireframe views, and seven included demo meshes.
-- Save and reopen .mp projects.
+MeshPainter paints colors to vertices or to a UV color map. Importing or painting image and material textures is not included in 1.3.3.0.
 
-### Texture painting (purchased feature)
-- Paint onto a texture using the same brush workflow.
-- Keep vertex-color and texture paint as separate data.
-- Save UVs and texture paint in .mp project files.
-- Use existing UVs on Windows, Linux, macOS, and browser builds.
-- Generate and preview UVs at 1024, 2048, or 4096 resolution on Windows.
-- Restore the mesh from before the most recent unwrap during the current session.
+## Save and export
 
-Automatic unwrapping currently requires Windows and supports one triangle surface. Applying a new UV layout starts a blank texture; existing texture paint is not transferred. See [USER_GUIDE.md](USER_GUIDE.md) for details and limitations.
+The editable `.mp` project stores mesh geometry, vertex colors, UV coordinates, and UV Color data. Registered free and paid accounts can save and reopen `.mp` projects. Anonymous demo sessions cannot save.
 
-### Other purchased tools
-- Import and export supported mesh formats (OBJ, GLB, STL, and PLY).
-- Use the eyedropper and autosave features.
-- Use the app's paid tools after license verification.
+Paid desktop builds can import GLB, GLTF, STL, PLY, DAE, and FBX files, in addition to OBJ. Export behavior in 1.3.3.0 is:
 
-## Controls
-
-| Input | Action |
+| Format | Data included |
 |---|---|
-| Left mouse button / drag | Paint |
-| Shift + left mouse button | Erase to white |
-| Right mouse drag | Orbit camera |
-| Mouse wheel | Zoom |
-| Shift + mouse wheel | Change brush radius |
-| Q / E | Pan up / down |
-| A / D | Pan left / right |
-| M | Toggle orbit / free camera |
-| F | Focus or reframe the mesh |
-| U | Show or hide the UV preview |
-| Y | Toggle wireframe |
-| X | Toggle wireframe X-ray |
-| Ctrl + left mouse button | Eyedropper (purchased feature) |
+| OBJ | Geometry, UV coordinates, vertex-color values, and a linked MTL/PNG. The PNG combines Vertex Color with UV Color when a UV layer exists, and is aligned to OBJ's V-coordinate convention. |
+| GLB | Geometry, vertex colors, UV coordinates, and the embedded UV Color image when present. Exports a rough, non-metal material and disables dielectric specular where the viewer supports the Khronos extension. Uses 32-bit indices above 65,535 vertices. |
+| PLY | Geometry, vertex colors, and UV coordinates; no UV Color image or material. |
+| STL | Geometry only. |
 
-The UV preview's mouse wheel zooms the preview when the pointer is over that panel. Painting remains in the 3D viewport.
+GLB keeps vertex colors and the UV Color image as separate inputs to the material. Standard glTF combines them by multiplying the texture color by the vertex color. OBJ's linked PNG now bakes that same combination for broader compatibility, while its optional inline vertex-color values may be ignored by some applications.
 
-## Project files and downloads
+OBJ, MTL, and PNG files are written beside one another. The OBJ assigns the MTL material to its faces, and the MTL references the PNG by filename. OBJ's inline vertex-color values are retained, but many programs ignore them; the linked PNG is the portable color result.
 
-- **.mp** is the working project format. It stores mesh geometry, vertex colors, UV coordinates, and texture paint.
-- **OBJ, GLB, STL, and PLY** support depends on the selected operation and license. Export details and limitations are described in the user guide.
+## Password recovery
 
-Fresh desktop archives are staged under this project's exports folder: exports/Windows/MeshPainter_Windows.zip, exports/Linux/MeshPainter_Linux.zip, and exports/MacOSX/MeshPainter_MacOSX.zip. After building and testing the corresponding executables, upload the updated archives to itch.io and attach them to the [GitHub Releases](https://github.com/iammojogo-sudo/MeshPainter/releases) page. The packaging script at exports/package_exports.bat creates the Windows and Linux archives and can rebuild the browser archive at exports/HTML5/index.zip. The macOS archive needs a fresh macOS build/package before it is replaced.
+Password reset links open the hosted reset page in a browser, so recovery works across desktop platforms. MeshPainter no longer stores account passwords locally and clears passwords left by older versions. Saved email addresses and sign-in session tokens may still be retained locally.
 
-The browser build is also available on the [itch.io page](https://iammojogo.itch.io/meshpainter). Feature availability can differ by build; automatic UV generation is currently Windows-only.
+The GitHub Pages reset-page source is in [`docs/reset-password`](docs/reset-password); configuration notes are in [`supabase/PASSWORD_RECOVERY_SETUP.md`](supabase/PASSWORD_RECOVERY_SETUP.md).
 
-## Build and packaging
+## Project files
 
-In the full local project, open the projectfiles folder with Godot 3.6.2, install matching export templates, and use projectfiles/export_presets.cfg. For Windows automatic UV generation, build and package the native helper as described in [native/README.md](native/README.md).
+- [`USER_GUIDE.md`](USER_GUIDE.md) explains painting, UV setup, accounts, and exports.
+- [`CHANGELOG.md`](CHANGELOG.md) lists changes by released version.
+- [`devlog.md`](devlog.md) preserves the development-session history.
+- [`Set-Version.ps1`](Set-Version.ps1) updates the app version, Windows/macOS export metadata, and current guides; historical release entries stay unchanged.
+- [`native/README.md`](native/README.md) covers the Windows UV helper.
+- [`supabase/SETUP.md`](supabase/SETUP.md) and [`supabase/PASSWORD_RECOVERY_SETUP.md`](supabase/PASSWORD_RECOVERY_SETUP.md) cover backend setup.
 
-The GitHub project is configured to track documentation, release archives, and selected native/Supabase setup files. The full Godot client source under projectfiles/ remains excluded by .gitignore.
+Copyright (C) 2026 iammojogo. All rights reserved.
 
-## Account and purchase setup
-
-The client uses Supabase authentication and paid-status checks. Purchase redemption uses the Supabase Edge Function described in [supabase/SETUP.md](supabase/SETUP.md). The legacy projectfiles/server folder is separate from this current client flow.
-
-## Documentation
-
-- [User guide](USER_GUIDE.md): current painting, UV setup, save workflow, and known limitations.
-- [Changelog](CHANGELOG.md): concise feature and fix history.
-- [Devlog](devlog.md): development-session notes.
-- [Native UV helper notes](native/README.md): build, packaging, and technical behavior.
-
-## License
-
-Copyright (C) 2026 iammojogo. All rights reserved. Do not redistribute or modify this software without permission.
