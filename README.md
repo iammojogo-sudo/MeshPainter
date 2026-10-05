@@ -45,16 +45,5 @@ OBJ, MTL, and PNG files are written beside one another. The OBJ assigns the MTL 
 
 Password reset links open the hosted reset page in a browser, so recovery works across desktop platforms. MeshPainter no longer stores account passwords locally and clears passwords left by older versions. Saved email addresses and sign-in session tokens may still be retained locally.
 
-The GitHub Pages reset-page source is in [`docs/reset-password`](docs/reset-password); configuration notes are in [`supabase/PASSWORD_RECOVERY_SETUP.md`](supabase/PASSWORD_RECOVERY_SETUP.md).
-
-## Project files
-
-- [`USER_GUIDE.md`](USER_GUIDE.md) explains painting, UV setup, accounts, and exports.
-- [`CHANGELOG.md`](CHANGELOG.md) lists changes by released version.
-- [`devlog.md`](devlog.md) preserves the development-session history.
-- [`Set-Version.ps1`](Set-Version.ps1) updates the app version, Windows/macOS export metadata, and current guides; historical release entries stay unchanged.
-- [`native/README.md`](native/README.md) covers the Windows UV helper.
-- [`supabase/SETUP.md`](supabase/SETUP.md) and [`supabase/PASSWORD_RECOVERY_SETUP.md`](supabase/PASSWORD_RECOVERY_SETUP.md) cover backend setup.
-
 Copyright (C) 2026 iammojogo. All rights reserved.
 
