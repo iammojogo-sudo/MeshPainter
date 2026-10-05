@@ -4,10 +4,10 @@ MeshPainter is a Godot 3.6.2 desktop painting tool for adding **Vertex Color** o
 
 This patch corrects material and color-map exports, fixes sign-in feedback for rejected credentials, and retains hosted password recovery and the Windows UV helper. Automatic UV generation remains Windows-only.
 
-## Try and get MeshPainter
+## Get MeshPainter
 
 - **Browser demo:** Try the included example meshes on [itch.io](https://iammojogo.itch.io/meshpainter) without downloading. Registered browser accounts can save and reopen `.mp` projects through browser storage and download copies, but the browser build cannot export mesh formats. Anonymous demo sessions cannot save.
-- **Free desktop build:** Download the Windows, Linux, or macOS build from [GitHub Releases](https://github.com/iammojogo-sudo/MeshPainter/releases). Anonymous sessions can paint on included examples. A registered free account can import OBJ files and save or reopen `.mp` projects; it cannot export painted meshes.
+- **Free desktop build:** Download the Windows, Linux, or macOS build from [GitHub Releases](https://github.com/iammojogo-sudo/MeshPainter/exports). Anonymous sessions can paint on included examples. A registered free account can import OBJ files and save or reopen `.mp` projects; it cannot export painted meshes.
 - **Paid edition:** The itch.io purchase unlocks UV Color painting, automatic UV generation on Windows, additional mesh import formats, mesh export, the eyedropper, and autosave. Mesh-format export requires the desktop build.
 
 Windows is the tested desktop build. Linux and macOS builds are available, but have not been fully tested.
